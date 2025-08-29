@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Application Form</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #f8faff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .form-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      margin-bottom: 12px;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      background: #4a90e2;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #357ABD;
+    }
+    .success-message {
+      display: none;
+      text-align: center;
+      margin-top: 15px;
+      color: green;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>  
+
+ <form action="https://api.web3forms.com/submit" method="POST">
+
+    <input type="hidden" name="access_key" value="781ed820-22c9-482c-a24c-6630cc0bcc51">
+
+    <input type="text" name="name" required placeholder="Full Name">
+    <input type="email" name="email" required placeholder="Email">
+    <input type="text" name="phone" required placeholder="Phone Number">
+    <textarea name="message" required placeholder="Resume drive link"></textarea>
+    <button type="submit">Submit Form</button>
+
+</form>
+  <script>
+    const form = document.getElementById("applicationForm");
+    const successMessage = document.getElementById("successMessage");
+    const replyto = document.getElementById("replyto");
+
+    form.addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      // set reply-to email dynamically
+      replyto.value = document.getElementById("email").value;
+
+      const formData = new FormData(form);
+
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: formData
+      });
+
+      if (response.ok) {
+        successMessage.style.display = "block";
+        form.reset();
+      } else {
+        alert("❌ Something went wrong. Please check your access key and try again.");
+      }
+    });
+  </script>
+</body>
+</html>
